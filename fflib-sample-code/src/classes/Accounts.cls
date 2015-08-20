@@ -39,10 +39,19 @@ public with sharing class Accounts extends fflib_SObjectDomain
 	
 	public void updateOpportunityActivity(fflib_SObjectUnitOfWork uow)
 	{
-		for(Account account : (List<Account>) Records)
+		for(Account account : records())
 		{
 			account.Description = 'Last Opportunity Raised ' + System.today();
 			uow.registerDirty(account);
 		}
+	}
+	
+	/**
+	 * A helper method that casts the list of generic SObjects records from
+	 * fflib_SObjectDomain into an appropriately typed list for this domain class.
+	 */
+	public List<Account> records()
+	{
+		return (List<Account>) records;
 	}
 }
